@@ -1,0 +1,164 @@
+/* רקע */
+body.login-background {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Segoe UI', sans-serif;
+    color: rgb(255, 255, 255);
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: none !important;
+}
+
+body.login-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, #ddffe186 0%, #ffffff 100%);
+    z-index: -1; /* לוודא שהרקע נמצא מאחורי הכל */
+}
+
+body.login-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('./Images/745.png') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.2;
+    z-index: -1; /* חשוב לוודא שהתמונה נמצאת מאחורי הכל */
+    
+}
+
+/* מרכז את הלוגו והטופס */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+   direction: rtl;
+    height: 100vh;
+    z-index: 2;
+}
+
+/* מיקום הלוגו */
+.logo-login {
+    
+    position: relative;
+    margin-bottom: -350px;
+    z-index: 3;
+}
+
+.logo-login img {
+    width: 290px;
+    height: auto;
+    
+}
+
+/* עיצוב הטופס */
+/* עיצוב הטופס עם שקיפות */
+.form-container-login {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.15); /* שקיפות קלה */
+    backdrop-filter: blur(10px); /* טשטוש רקע מאחורי הטופס */
+    -webkit-backdrop-filter: blur(10px); /* תמיכה בדפדפני WebKit */
+    padding: 30px;
+    
+    border-radius: 18px;
+    width: 350px;
+    margin-top: 90px;
+    direction: rtl;
+    color: white;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* אפקט ריחוף */
+.form-container-login:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 
+                0 0 18px 3px rgba(147, 218, 147, 0.26);
+}
+
+/* עיצוב הטופס */
+.form-title-log {
+    text-align: center;
+    font-size: 30px;
+    margin-top: -10px;
+    
+    color: rgb(9, 102, 71);
+    margin-bottom: 29px;
+}
+
+/* עיצוב האינפוטים */
+.input-group {
+    display: flex;
+    direction: rtl;
+    color: white;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    margin-bottom: 5px;
+    text-align: right; 
+    color: black !important;
+ 
+}
+
+.input-group input {
+    text-align: right; 
+    background-color: rgba(255, 255, 255, 0.2); /* רקע עם שקיפות */
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    color: black; /* צבע טקסט לבן */
+    font-size: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    padding: 10px;
+    height: 40px;
+    outline: none;
+}
+
+/* עיצוב ה-placeholder */
+.input-group input::placeholder {
+    color: rgba(0, 0, 0, 0.7); /* צבע לבן חצי שקוף */
+    font-size: 16px;
+}
+
+/* כפתור התחברות */
+.form-button-log {
+    background-color: rgb(9, 102, 71);
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.6s;
+    text-align: center;
+    border: none;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.form-button-log:hover {
+    background-color: rgb(0, 155, 52);
+    transform: scale(1.05);
+}
+input:focus, select:focus, textarea:focus {
+    border-color: #009c75;
+    box-shadow: 0 0 8px rgba(0, 86, 179, 0.2);
+    outline: none;
+  }

@@ -1,0 +1,322 @@
+import React, { useState, useEffect } from 'react';
+import Joi from 'joi';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './style.css';
+import logo from './Images/Logo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone, faGlobe, faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import Rocket from './Images/Rocket.png';
+
+const Liron: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    category: '',
+    dep: '',
+    message: '',
+  });
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+
+  useEffect(() => {
+    // הוספת מחלקה ייחודית ל-body
+    document.body.classList.add('liron-background');
+
+    return () => {
+      // הסרת המחלקה כאשר הדף הזה מתחלף
+      document.body.classList.remove('liron-background');
+    };
+  }, []);
+
+  const toggleSwitch = () => {
+    setIsSwitchOn(!isSwitchOn);
+  }
+const schema = Joi.object({
+  name: Joi.string()
+    .min(3)
+    .max(30)
+    .required()
+    .label('שם פרטי')
+    .messages({
+      'string.empty': 'שם פרטי לא יכול להיות ריק.',
+      'string.min': 'שם פרטי חייב להכיל לפחות 3 תווים.',
+      'any.required': 'יש למלא את השדה שם פרטי.',
+    }),
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .required()
+    .label('כתובת מייל')
+    .messages({
+      'string.empty': 'כתובת מייל לא יכולה להיות ריקה.',
+      'string.email': 'כתובת המייל אינה תקינה.',
+      'any.required': 'יש למלא את שדה המייל.',
+    }),
+  message: Joi.string()
+    .min(5)
+    .max(500)
+    .required()
+    .label('פרטי קריאה')
+    .messages({
+      'string.empty': 'פרטי הקריאה לא יכולים להיות ריקים.',
+      'string.min': 'פרטי הקריאה חייבים להכיל לפחות 5 תווים.',
+      'any.required': 'יש למלא את שדה פרטי הקריאה.',
+    }),
+});
+
+
+  const validate = () => {
+    const { error } = schema.validate(formData, { abortEarly: false });
+    if (!error) return null;
+
+    const errorObj: { [key: string]: string } = {};
+    error.details.forEach((detail) => {
+      if (detail.path[0]) {
+        errorObj[detail.path[0] as string] = detail.message;
+      }
+    });
+    return errorObj;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/calls', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send the request');
+      }
+
+      const responseData = await response.json();
+      console.log('Server response:', responseData);
+      toast.success('הטופס נשלח בהצלחה!', { position: 'top-center', closeButton: false });
+      setFormData({ name: '', email: '', message: '', category: '', dep: '' });
+    } catch (error) {
+      console.error('Error sending request:', error);
+      toast.error('שגיאה בשליחת הטופס.', { position: 'top-center', closeButton: false });
+    }
+  };
+
+  const confirmSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (validationErrors) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    toast.info(
+      <div className="toast-of-success">
+        <p>האם ברצונך לשלוח את הטופס?</p>
+        <ul>
+          <li><strong>שם:</strong> {formData.name}</li>
+          <li><strong>אימייל:</strong> {formData.email}</li>
+          <li><strong>קטגוריה:</strong> {formData.category}</li>
+          <li><strong>מחלקה:</strong> {formData.dep}</li>
+          <li><strong>הודעה:</strong> {formData.message}</li>
+        </ul>
+        <div className="buttons-toast" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
+          <button
+            onClick={() => {
+              handleSubmit();
+              toast.dismiss();
+            }}
+            style={{
+              padding: '5px 10px',
+              backgroundColor: '#28a745',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+          >
+            כן
+          </button>
+          <button
+            onClick={() => toast.dismiss()}
+            style={{
+              padding: '5px 10px',
+              backgroundColor: '#dc3545',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+          >
+            לא
+          </button>
+        </div>
+      </div>,
+      {
+        position: 'top-center',
+        autoClose: false,
+        closeButton: false,
+      }
+    );
+  };
+
+  return (
+    <>
+      <ToastContainer />
+      <div className="second-logo">
+        <h1>Oren Mizrah</h1>
+      </div>
+      <div className="support-logo">
+        <h1>Support</h1>
+      </div>
+      <div className="logo-landing">
+        <img src={logo} alt="Logo" className="logo"></img>
+      </div>
+      <div className="rocket-container">
+        <img src={Rocket} alt="Rockekt" className="rocket"></img>
+      </div>
+      
+      <hr className="thin-line"></hr>
+      <div className="whole-form">
+      
+        <div className="content-container">
+            <div className="container-call">
+            <div className="form-container">
+            <h1 className="form-title">קריאת שירות</h1>
+
+            <form onSubmit={confirmSubmit}>
+                <div className="info-send">
+                    <div className="divider-info">
+                        <label htmlFor="name">שם פרטי</label>
+                        <input
+                            type="text"
+                            placeholder='שפי נוי'
+                            id="name"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                        />
+                        {errors.name && <p className="error-message">{errors.name}</p>}
+                    </div>
+                    <div className="divider-info">
+                    <label htmlFor="categories">בחר קטגוריה</label>
+                    <select
+                        id="categories"
+                        name="categories"
+
+                    >
+                        <option value="hardware">תמיכה בחומרה</option>
+                        <option value="software">תמיכה בתוכנה</option>
+                        <option value="network">תמיכה ברשת</option>
+                        <option value="security">תמיכה באבטחת מידע</option>
+                        <option value="other">אחר</option>
+                    </select>
+                    {errors.categories && <p className="error-message">{errors.categories}</p>}
+                    </div>
+
+                </div>
+
+                <div className="info-send">
+                <div className="divider-info">
+
+                    <label htmlFor="email">כתובת מייל</label>
+                    <input
+                        type="email"
+                        className="info-input"
+                        id="email"
+                        placeholder='sample@oren-ins.co.il'
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                </div>
+                {errors.email && <p className="error-message">{errors.email}</p>}
+                <div className="divider-info">
+                    <label htmlFor="phone">מספר פלאפון</label>
+                    <input
+                        type="text"
+                        placeholder='0522658101'
+                        className="info-input"
+
+                    />
+                </div>
+           
+                {errors.email && <p className="error-message">{errors.email}</p>}
+                </div>
+                <div>
+                <label htmlFor="dep">בחר מחלקה</label>
+                    <select
+                        id="dep"
+                        name="dep"
+                        className="dep"
+                    >
+                        <option value="hardware">ארי</option>
+                        <option value="software">לשם</option>
+                        <option value="network">מנדלוואי</option>
+                        <option value="security">וובפרייס</option>
+                        <option value="other">אחר</option>
+                    </select>
+                    {errors.dep && <p className="error-message">{errors.dep}</p>}
+                </div>
+                <div>
+                <label htmlFor="message">פרטי קריאה</label>
+                <textarea
+                    placeholder='התקלקל לי הרדיו'
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={4}
+                ></textarea>
+                {errors.message && <p className="error-message">{errors.message}</p>}
+                </div>
+                    <div className="switch-container">
+                        <label className="switch-label">
+                        קריאה עבור אדם אחר
+                        <div className={`switch ${isSwitchOn ? 'on' : ''}`} onClick={toggleSwitch}>
+                            <div className="switch-toggle"></div>
+                        </div>
+                        </label>
+                    </div>
+                <button className="form-button" type="submit">שלח קריאה</button>
+            </form>
+            </div>
+            </div>
+            <div className="container-info">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                    veniam, quis nostrud exercitation.
+                </p>
+                <div className="contact-info">
+                <p>
+                    <FontAwesomeIcon className="info-icon" icon={faPhone} style={{ marginRight: '10px' }} />
+                    <strong>Phone:</strong> +123-456-7890
+                </p>
+                <p>
+                    <FontAwesomeIcon className="info-icon" icon={faGlobe} style={{ marginRight: '10px' }} />
+                    <strong>Website:</strong> www.oren-ins.co.il
+                </p>
+                <p>
+                    <FontAwesomeIcon className="info-icon" icon={faEnvelope} style={{ marginRight: '10px' }} />
+                    <strong>Email:</strong> hello@oren-ins.co.il
+                </p>
+                <p>
+                    <FontAwesomeIcon className="info-icon" icon={faMapMarkerAlt} style={{ marginRight: '10px' }} />
+                    <strong>Address:</strong> Camput Amot
+                </p>
+                </div>
+            </div>
+           
+        </div>
+      </div>
+
+    </>
+  );
+};
+
+export default Liron;

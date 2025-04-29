@@ -1,0 +1,807 @@
+
+:root {
+  --background-light: #f5f5f7;
+  --border-color: #e5e5ea;
+  --hover-color: #f9f9fb;
+  --blue-color: #007aff;
+  --yellow-color: #ffcc00;
+  --gray-color: #d1d1d6;
+  --orange-color: #ff9500;
+}
+/* רקע דשבורד */
+body.dash-board-background {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+}
+
+
+body.dash-board-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  height: 100%;
+  background: linear-gradient(to bottom right, #ffffff86 0%, #eeeeee 100%)!important;
+  z-index: -1; /* לוודא שהרקע נמצא מאחורי הכל */
+}
+
+body.dash-board-background::after {
+  content: '';
+  background: linear-gradient(to bottom right, #edf1ee86 0%, #b4f0cd 100%)!important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  opacity: 0.2;
+  z-index: -1; /* תמונת רקע תהיה מאחורי התוכן */
+}
+.dashboard-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  position: sticky;
+  top: 150px;
+  background: rgba(245, 245, 247, 0.9);
+  z-index: 100;
+  padding: 10px 0;
+  color: #727272;
+  border-radius: 16px;
+}
+.dcard-label{
+  margin-top: -00px;
+}
+.dcard-count{
+  margin-top: -10px;
+}
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  margin: 0 10px;
+  max-height: 120px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border: 2px solid transparent;
+}
+
+.dashboard-card:hover {
+  transform: scale(1.05);
+}
+
+.dashboard-card.selected {
+  border-color: #007aff;
+}
+
+.table th:first-child {
+  width: 35px !important;
+  min-width: 35px !important;
+  max-width: 35px !important;
+  text-align: center;
+}
+
+
+/* עיצוב לפי Apple - עגול, נקי ואלגנטי */
+/* עיצוב לפי Apple - עגול, נקי ואלגנטי */
+.checktop {
+  width: 12px;
+  height: 22px;
+
+  cursor: pointer;
+  appearance: none;
+  background: #ebebf0; /* אפור בהתחלה */
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.checktop:hover {
+  border-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* עיצוב כאשר המסומן */
+.check-dash {
+  width: 18px;  /* גודל מותאם */
+  height: 18px;
+  appearance: none;  /* מעלים את העיצוב הדיפולטי */
+  border: 2px solid rgba(0, 0, 0, 0.3);  /* מסגרת אפורה בהתחלה */
+  border-radius: 50%;  /* שינוי לצורה עגולה */
+  background-color: #ebebf0; /* רקע אפור בהתחלה */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.9); /* התאמת קנה המידה */
+  margin: 0 auto; /* ממורכז */
+  transition: all 0.3s ease-in-out;
+}
+
+.check-dash:hover {
+  border-color: #007aff;
+  box-shadow: 0 0 6px rgba(0, 122, 255, 0.5);
+}
+/* מצב צ'קבוקס מסומן */
+.check-dash:checked {
+  background-color: #007aff; /* כחול */
+  border-color: #007aff;
+  box-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
+}
+
+/* מצב ביטול סימון - חוזר לצבע המקורי */
+.check-dash:not(:checked) {
+  background-color: #ebebf0 !important; /* אפור */
+  border-color: rgba(0, 0, 0, 0.3);
+  box-shadow: none;
+}
+.check-dash:checked::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%; /* שינוי לצורה עגולה */
+  display: block;
+  transition: all 0.3s ease-in-out;
+}
+
+/* כותרת הטבלה עם יישור וסידור מתאים */
+/* צ'קבוקס ראשי בטבלה */
+.check-dash-th {
+  width: 22px !important;
+  height: 22px !important;
+  appearance: none; /* ביטול עיצוב ברירת מחדל */
+  background: #ebebf0; /* רקע אפור */
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-radius: 50%; /* עיגול מלא */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  margin: 0 auto; /* ממרכז אותו בתוך התא */
+}
+
+/* אפקט ריחוף */
+.check-dash-th:hover {
+  border-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* מצב מסומן */
+.check-dash-th:checked {
+  background: #007aff; /* כחול */
+  border-color: #007aff;
+  box-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
+}
+
+/* יצירת עיגול פנימי לסימון */
+.check-dash-th:checked::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  display: block;
+  transition: all 0.3s ease-in-out;
+}
+
+/* אפקט לחיצה עדין */
+.checktop:active {
+  transform: scale(0.9);
+}
+.check-dash:not(:checked) {
+  background: transparent;
+}
+
+.table {
+  width: 1000px;
+  
+  border-spacing: 0 5px; /* מרווח קטן בין השורות */
+
+  }
+
+.table td {
+  text-align: center;
+  
+  padding: 8px;
+
+  vertical-align: middle; /* מיישר את התוכן אנכית */
+}
+
+.table th {
+  background-color: #8a8a8a;
+  color: white;
+  
+  width: 25%;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+
+.status-button {
+  padding: 5px 10px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  transition: background-color 0.6s;
+  border: none;
+  width: 50%;
+  display: inline-block; /* מאפשר מרכזיות */
+  margin: 0 auto; /* שומר על יישור אופקי */
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.status-button.new {
+  background-color: #a8cf38;
+}
+
+.status-button.in-progress {
+  background-color: #1e90ff;
+}
+
+.status-button.resolved {
+  background-color: #28a745;
+}
+
+.status-button.closed {
+  background-color: #8ecaff;
+}
+.logo-list {
+  position: fixed;
+
+  top: 15% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+  width: 450px;
+  height: 300px;
+  display: flex;
+  align-items: center; /* ממרכז את התוכן אנכית */
+  justify-content: center; /* ממרכז את התוכן אופקית */
+}
+
+.logo-list img {
+  width: 100%; /* שומר שהתמונה תהיה בגודל מותאם */
+  max-width: 260px; /* קובע גודל מקסימלי לתמונה */
+  height: auto; /* שמירה על יחס התמונה */
+  margin: 0 auto; /* ביטול מרווחים מיותרים */
+}
+
+.refresh-list{
+position: fixed;
+animation: fadeIn 0.5s ease-in-out;
+bottom: 50px;
+left: 50%;
+bottom: 100px;
+}
+.refresh-list>img{
+width: 30px;
+height: 30px;
+transition: all 0.3s ease; /* מוסיף אנימציה חלקה לשינויים */
+}
+.refresh-list>img:hover{
+
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* מוסיף צל בעת ריחוף */
+transform: translateY(-2px); /* מזיז את הכפתור כלפי מעלה */
+}
+
+
+.green-background {
+background-color: ֳ#f51b1b;
+color: rgb(0, 0, 0); /* טקסט לבן על רקע ירוק */
+}
+
+.white-background {
+background-color: rgb(255, 255, 255);
+height: 130px;
+color: black; /* טקסט שחור על רקע לבן */
+}
+.status-th{
+width: 40px;
+}
+.tbody-dash>tr{
+height: 10px;
+background-color: rgb(230, 230, 230);
+}
+
+/* מחלקה עבור השורות הירוקות */
+.green-background .icon-button {
+color: white; /* אייקונים לבנים בשורות הירוקות */
+}
+
+.green-background .icon-button:hover {
+color: #ffdd59; /* צבע בעת ריחוף אם תרצה */
+}
+
+/* מחלקה עבור השורות הלבנות */
+.white-background .icon-button {
+color: #0d624b; /* אייקונים ירוקים בשורות הלבנות */
+}
+
+.white-background .icon-button:hover {
+color: #1e90ff; /* צבע בעת ריחוף אם תרצה */
+}
+
+.status-button.חדש {
+background-color: #279b23 !important; /* ירוק עבור חדש */
+}
+
+.status-button.בטיפול {
+background-color: #ffdd59; /* כתום עבור בטיפול */
+}
+
+.status-button.טופל {
+  border: 1px solid #e9e9e9; /* קו ירוק בצד */
+background-color: #0071E3 !important; /* אדום עבור טופל */ 
+
+}
+.status-button {
+padding: 5px 10px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+outline: none; /* מסיר את הפס השחור */
+transition: all 0.3s ease; /* מוסיף אנימציה חלקה לשינויים */
+}
+
+.status-button:hover {
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* מוסיף צל בעת ריחוף */
+transform: translateY(-2px); /* מזיז את הכפתור כלפי מעלה */
+}
+
+.status-button:active {
+transform: scale(0.95); /* מכווץ מעט את הכפתור בעת לחיצה */
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.082); /* הצללה בעת לחיצה */
+}
+.status-button:focus {
+box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* צל כחול עדין בעת פוקוס */
+outline: none; /* מסיר את המסגרת השחורה */
+}
+/* סגנון הכרטיסייה (Details Card) */
+/* סגנון הכרטיסייה (Details Card) */
+.details-card {
+  border-radius: 40px; /* פינות מעוגלות */
+position: fixed;
+top: 150px;
+direction: rtl;
+background-color: #f8f8f8;
+right: 30px; /* מתחיל מחוץ למסך */
+width: 400px;
+height: 70%;
+box-shadow: -6px 0 122px rgba(0, 0, 0, 0.15); /* צל מוגבר בעת ריחוף */
+z-index: 999999 !important;
+transition: right 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* אנימציה חלקה לפתיחה וסגירה */
+border: 3px solid #4caf50; /* קו ירוק בצד */
+overflow-y: auto; /* גלילה אנכית במידת הצורך */
+opacity: 0;
+transform: translateX(100%); /* מתחיל מחוץ למסך */
+}
+/* עבור כל האלמנטים עם גלילה */
+.details-card::-webkit-scrollbar {
+  display: none; /* מעלים את ה-Scrollbar */
+}
+
+/* מבטיח תמיכה בגלילה בדפדפנים אחרים */
+.details-card {
+  -ms-overflow-style: none;  /* מעלים את ה-Scrollbar ב-IE ו-Edge */
+  scrollbar-width: none;  /* מעלים את ה-Scrollbar ב-Firefox */
+}
+
+/* מחלקה לפתיחת הכרטיסייה */
+.details-card.open {
+
+opacity: 1;
+transform: translateX(0); /* מחזיר את הכרטיסייה למקום */
+}
+
+/* תוכן הכרטיסייה */
+.details-card-content {
+padding: 20px;
+}
+
+/* כפתור סגירה */
+.close-button {
+position: absolute;
+top: 10px;
+left: 10px;
+background: none;
+border: none;
+font-size: 24px;
+cursor: pointer;
+color: #000;
+transition: color 0.2s ease;
+}
+
+.close-button:hover {
+background-color: #f3f3f3;
+color: #ff0000; /* צבע אדום בעת ריחוף */
+}
+
+/* אפקט הכותרת */
+.details-card h2 {
+font-size: 1.5rem;
+margin-bottom: 1rem;
+border-bottom: 2px solid #4caf50;
+padding-bottom: 5px;
+color: #333333;
+}
+
+/* סגנון פסקאות */
+.details-card p {
+font-size: 1rem;
+line-height: 1.5;
+margin-bottom: 0.8rem;
+color: #555555;
+}
+
+/* אפקט חוויית משתמש */
+.details-card:hover {
+box-shadow: -6px 0 12px rgba(0, 0, 0, 0.15); /* צל מוגבר בעת ריחוף */
+}
+.Details{
+  
+  margin-top: 60px;
+}
+.button-sendmessage{
+width: 93%;
+box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.15); /* צל מוגבר בעת ריחוף */
+}
+.send-button{
+width: 93%;
+box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.15); /* צל מוגבר בעת ריחוף */
+}
+.delete-but{
+margin-top: 30px;
+box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* צל מוגבר בעת ריחוף */
+background-color: #cf0f0fc0;
+}
+.delete-but:hover{
+background-color: #b30c0cc0;
+}
+.send-but{
+box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* צל מוגבר בעת ריחוף */
+padding: 5px 10px;
+width: 100%;
+padding: 12px;
+border: none;
+color: white;
+border-radius: 6px;
+cursor: pointer;
+
+background-color:#0d624b;
+font-weight: 500;
+font-size: 16px;
+transition: background-color 0.6s;
+border: none;
+width: 50%;
+display: inline-block; /* מאפשר מרכזיות */
+margin: 0 10px; /* שומר על יישור אופקי */
+border-radius: 10px;
+cursor: pointer;
+}
+
+
+.status-button.חדש {
+background-color: #d9ddcc; /* ירוק עבור חדש */
+}
+.delete-toast{
+gap: 10px;
+
+}
+.delete-toast-wrap{
+direction: rtl;
+}
+.buttons{
+bottom: 0;
+}
+
+.table-container {
+    border-radius: 20px 20px 20px 20px;
+    margin: 180px auto !important;
+    height: 501px !important;
+    margin-top: 250px !important;
+    overflow-x: auto;
+    overflow-y: visible; 
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+    direction: rtl;
+    overflow: hidden; /* ביטול גלילה */
+
+}
+
+.search-dash {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: none; /* מסיר את המסגרת הדקה */
+  outline: none; /* מסיר את הקו שמופיע בלחיצה */
+  border-radius: 8px;
+  text-align: right;
+  box-sizing: border-box;
+  box-shadow: none !important;
+  text-align: center;
+  color: rgb(46, 46, 46S);
+ /* רקע עדין יותר */
+ 
+}
+
+/* הסרת הצל שמופיע במצב פוקוס (בדפדפנים מסוימים כמו Chrome/Safari) */
+.search-dash:focus {
+  box-shadow: none; /* מבטל את האפקט */
+}
+.search-dash::placeholder{
+color: rgb(46, 46, 46);
+font-size: 1rem;
+
+}
+.header-top {
+  z-index: 9999;
+
+  border-bottom: 1px solid #ccc !important; /* מוסיף גבול רק למטה */
+}
+
+.header-secondary{
+  box-shadow: 10 8px 20px rgba(0, 0, 0, 2.1);
+}
+.table {
+  
+width: 1000px;
+border-collapse: collapse;
+}
+.table th{
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #202020 !important;
+}
+.table th, .table td {
+text-align: right;
+border: none !important;
+padding: 4px 8px; /* ריווח פנימי קטן */
+height: 37px !important; /* גובה התא */
+color: #2e2e2e;
+}
+
+.table th {
+background-color: #b4f5b7;
+color: white;
+min-width: 180px;
+font-size: 14px; /* גודל טקסט קטן יותר */
+background-color:#d1d1d6 !important;
+}
+
+.table tr {
+height: 20px; /* גובה השורה */
+position: relative;
+border-bottom: 1px solid var(--border-color);
+background-color:#ffffff !important;
+z-index: 10; /* מעלה את השורה מעל כל שכבות אחרות */
+}
+
+.table tr:nth-child(even) {
+background-color: #f9f9f9; /* רקע צבע שונה */
+}
+
+.table tr:hover {
+background-color: #e0e0e0 !important; /* אפקט ריחוף */
+box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+font-size: 13px; /* גודל טקסט אחיד וקטן */
+}
+.select-handler {
+  width: 130px; /* שומר על גודל אחיד */
+  height: 28px; /* גובה מותאם */
+  font-size: 14px;
+  padding: 2px 5px;
+
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;
+}
+
+/* מסיר את הקו השחור והופך את זה לחלק */
+.select-handler {
+  position: absolute; /* מונע השפעה על המבנה של הטבלה */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* ממורכז */
+  width: 120px; /* קטן וקבוע */
+  height: 30px;
+  font-size: 14px;
+  padding: 5px;
+
+  border-radius: 4px;
+  background-color: white;
+  z-index: 10; /* מבטיח שהוא יישאר מעל הטבלה */
+}
+
+.handler-text {
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  padding: 2px 5px;
+}
+
+.handler-text:hover {
+  text-decoration: underline;
+}
+/* מסתיר את האייקונים כברירת מחדל */
+
+
+/* כאשר המשתמש מרחף מעל השורה, האייקונים מופיעים */
+.table tr:hover .actions-container {
+  opacity: 1;
+}
+
+.bulk-actions-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 50px;
+  width: 300px;
+  position: absolute;
+  margin-top: 740px;
+  right: 204px;
+
+  border-radius: 10px;
+  padding: 8px;
+
+  opacity: 0;
+  transform: translateY(-20px); /* מתחיל גבוה יותר */
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  visibility: hidden; /* מוסתר כברירת מחדל */
+}
+
+/* כאשר יש קריאות מסומנות, מופיע */
+.bulk-actions-container.visible {
+  opacity: 1;
+  transform: translateY(0); /* מחזיר למקום */
+  visibility: visible;
+}
+
+.bulk-select {
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 40px;
+  direction: rtl;
+  margin-top: 4px;
+}
+
+.bulk-action-button {
+  background-color: #28a745 !important;
+  color: white;
+  height: 40px;
+  margin-top: -10px;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.bulk-action-button:hover {
+  background-color: #218838 !important;
+}
+
+.bulk-action-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.pagination-container-dash {
+  position: absolute;
+  bottom: 30px; /* תזוזה כלפי מטה */
+  left: 50%;
+  transform: translateX(-50%); /* מרכז את האלמנט */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+
+
+.pagination-container-dash button {
+  padding: 5px 10px;
+  border: none;
+  background-color:#0d624b;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.pagination-container-dash span {
+  color:#444444;
+}
+.pagination-container-dash button:disabled {
+  background-color: #444444;
+  cursor: not-allowed;
+}
+.actions-vertical {
+  gap: 1px !important; /* במקום 2px */
+  justify-content: center;
+  align-items: center;
+}
+.icon-button {
+  color: #3d3d3d !important;
+  font-size: 1rem !important; /* צמצום גודל האייקונים */
+  padding: 2px !important; /* ביטול ריווח פנימי */
+}
+
+  .icon-button:focus {
+  outline: none; /* מבטל מסגרת שחורה בעת פוקוס */
+  }
+  .icon-button:hover {
+  color: #1e90ff; /* משנה רק את צבע הטקסט/האייקון */
+  background: none; /* מבטיח שאין רקע */
+  box-shadow: none; /* מבטל צל */
+  transform: none; /* מבטל אנימציית תזוזה */
+  }
+  .teador {
+    width: 65px !important; /* הגדלנו קצת את הרוחב של העמודה */
+    min-width: 65px !important;
+    max-width: 65px !important;
+    text-align: center;
+    
+    padding: 4px !important; /* ריווח פנימי עדין */
+  }
+  
+  .actions-vertical {
+    gap: 15px !important; /* ריווח קל בין האייקונים */
+    justify-content: center;
+    
+    align-items: center;
+  }
+  .table th:last-child {
+    width: 50px !important;
+    min-width: 50px !important;
+    max-width: 50px !important;
+    text-align: center;
+  }
+  .actions-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+    gap: 12px; /* מרווח תקין בין האייקונים */
+    width: auto; /* מבטיח שהתוכן לא ירחיב את התא */
+    padding: 0 !important;
+    opacity: 0; /* מוודא שהתוכן יישאר נראה */
+    position: relative;
+    transition: opacity 0.2s ease-in-out;
+    left: 80px; /* מזיז שמאלה */
+  }
+  

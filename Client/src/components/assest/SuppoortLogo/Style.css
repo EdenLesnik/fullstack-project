@@ -1,0 +1,14 @@
+.second-logo {
+    position: fixed;
+    left: 40px;
+    top: 0px;
+    z-index: 9999;
+}
+.support-logo h1 {
+    font-size: 2.7rem;
+}
+.second-logo h1 {
+    color: rgb(58, 58, 114);
+    font-size: 2.7rem;
+    animation: colorPulse 3s infinite; /* אנימציה חלקה */
+}

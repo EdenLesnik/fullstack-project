@@ -1,0 +1,519 @@
+*{
+    padding: 0;
+    
+}
+/* מניעת שינויים של Chrome בהשלמה אוטומטית */
+/* שומר על העיצוב גם כשכרום עושה השלמה אוטומטית */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important; /* מחזיר את הצל */
+    border: 2px solid rgba(255, 255, 255, 0.3) !important; /* מחזיר את הגבול */
+    background-color: transparent !important; /* מונע שינוי רקע */
+    -webkit-text-fill-color: rgb(9, 102, 71) !important; /* מחזיר את הצבע הירוק של הטקסט */
+    transition: background-color 5000s ease-in-out 0s; /* טריק כדי למנוע שינוי צבע */
+}
+
+
+
+body.liron-background {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* גובה מסך מלא */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Segoe UI', sans-serif;
+    color: rgb(255, 255, 255);
+    position: relative; /* מאפשר שימוש ב-absolute ל-::before */
+    width: 100%;
+    overflow: hidden; /* מונע גלילה */
+}
+
+body.liron-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, #ddffe186 0%, #ffffff 100%);
+    z-index: 1; /* שכבת ה-gradient */
+}
+
+body.liron-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+
+    background-size: cover;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  
+    background-size: cover; /* התמונה תכסה את כל המסך */
+    opacity: 0.2; /* רמת שקיפות בין 0 (שקוף לחלוטין) ל-1 (אטום לחלוטין) */
+    z-index: 1; /* שכבת התמונה מעל ה-gradient */
+}
+
+.content-container{
+    display: flex;
+    gap: 200px
+}
+.info-send{
+    display: flex;
+    gap: 45px;
+}
+.divider-info{
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.divider-info input,
+.divider-info select,
+.divider-info textarea {
+    width: 100%;
+    height: 50px;
+}
+.dep{
+    width: 100%;
+}
+.toast-of-success .buttons-toast {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.toast-of-success .buttons-toast button {
+    flex-grow: 1; /* מאפשר לכל כפתור לתפוס מקום שווה */
+    padding: 10px 20px; /* הגדלת שטח לחיצה */
+    font-size: 18px; /* גודל טקסט גדול יותר */
+    font-weight: bold; /* מודגש */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.toast-of-success .buttons-toast button:hover {
+    transform: scale(1.05); /* הגדלה קטנה בלחיצה */
+}
+
+/* כפתור כן */
+.toast-of-success .buttons-toast button:first-child {
+    background-color: #28a745;
+    color: white;
+}
+
+/* כפתור לא */
+.toast-of-success .buttons-toast button:last-child {
+    background-color: #dc3545;
+    color: white;
+}
+
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+    font-family: 'Segoe UI', sans-serif !important;
+    color: rgba(0, 0, 0, 0.5); /* צבע שחור שקוף למחצה */
+    font-size: 19px;
+}
+
+input, textarea, select {
+    /* הופך את הרקע לשקוף */
+    border: 2px solid rgba(255, 255, 255, 0.3); /* מוסיף מסגרת שקופה למחצה */
+    border-radius: 10px; /* פינות מעוגלות */
+
+    color: #424242; /* הטקסט המוקלד יהיה לבן */
+    font-size: 16px; /* גודל טקסט */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* צל מסביב */
+    width: 100%;
+    padding: 10px; /* מרווח פנימי */
+}
+textarea {
+    font-family: 'Segoe UI', sans-serif !important; /* מוודא שהתצוגה תהיה כמו בשאר הטופס */
+    font-size: 16px !important; /* גודל הטקסט */
+    color: rgb(9, 102, 71) !important; /* צבע הטקסט */
+    border: 2px solid rgba(255, 255, 255, 0.3); /* מסגרת */
+    border-radius: 10px; /* פינות מעוגלות */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* צל */
+    padding: 10px; /* ריווח פנימי */
+    width: 100%;
+    height: 200px; /* גובה מותאם */
+    resize: none; /* מונע שינוי גודל */
+    background-color: transparent; /* רקע שקוף */
+}
+
+textarea::placeholder {
+    font-family: 'Segoe UI', sans-serif !important;
+    color: rgba(0, 0, 0, 0.5); /* צבע placeholder */
+    font-size: 16px;
+}
+
+input::placeholder, textarea::placeholder, select::placeholder {
+    color: rgba(0, 0, 0, 0.5); /* placeholder בצבע שקוף למחצה */
+    font-size: 16px;
+}
+input, textarea, select {
+    font-size: 16px !important;
+    color: rgb(9, 102, 71);
+}
+
+.form-button{
+    background-color: rgb(9, 102, 71);
+    width: max-content;
+    position: relative;
+    width: 100%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* צל מסביב */
+    margin-top: -90px;
+    border-radius: 15px; /* הפינות המעוגלות */
+    transition: background-color 0.6s;
+}
+
+.form-button:hover {
+    background-color: rgb(0, 173, 185);
+    transform: scale(1.05);
+}
+
+
+.container-info{
+    direction: ltr;
+    max-width: 300px;
+}
+.form-container>h1{
+    margin-bottom: 35px;
+    margin-top: 15px;
+    font-size: 44px !important;
+    color: rgb(9, 102, 71) !important; /* שחור חזק */
+}
+.container-info {
+    margin-top: 143px;
+    color: #009c75 !important; /* שחור חזק */
+    opacity: 1 !important; /* מבטל כל שקיפות */
+    position: relative; /* מבטיח שהטקסט לא יושפע משכבות אחרות */
+    z-index: 2; /* מבטיח שהתוכן נמצא מעל שכבת ה-overlay */
+}
+.contact-info{
+    margin-top: 45px
+}
+.container-info  p{
+    margin-top: 50px;
+}
+.info-icon{ 
+ 
+}
+input{
+    
+    height: 30px;
+}
+.second-logo {
+    position: fixed;
+    left: 40px;
+    top: 0px;
+    z-index: 9999;
+}
+
+.second-logo h1 {
+    color: rgb(58, 58, 114);
+    animation: colorPulse 3s infinite; /* אנימציה חלקה */
+}
+
+.support-logo {
+    position: fixed;
+    left: 40px;
+    z-index: 9999;
+    top: 50px;
+}
+
+.support-logo h1 {
+    color: rgb(100, 100, 185);
+    animation: colorPulse 3s infinite; /* אותה אנימציה כמו בלוגו הראשון */
+}
+
+@keyframes colorPulse {
+    0% {
+        color: rgb(0, 180, 160); /* התחלה */
+    }
+    12.5% {
+        color: rgb(0, 170, 120);
+    }
+    25% {
+        color: rgb(0, 160, 130);
+    }
+    37.5% {
+        color: rgb(0, 150, 100);
+    }
+    50% {
+        color: rgb(0, 140, 110); /* אמצע */
+    }
+    62.5% {
+        color: rgb(0, 150, 115);
+    }
+    75% {
+        color: rgb(0, 160, 120);
+    }
+    87.5% {
+        color: rgb(0, 170, 130);
+    }
+    100% {
+        color: rgb(0, 180, 140); /* חזרה להתחלה */
+    }
+}
+
+
+.rocket-container {
+    position: fixed;
+    bottom: -290px;
+    right: -160px;
+    
+    z-index: 5;
+    transition: transform 1s ease-in-out; /* אנימציה חלקה */
+}
+
+.rocket {
+    margin: 0 auto;
+    left: 20px;
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    animation: rocketFloat 3s ease-in-out infinite; /* אנימציה מתמשכת */
+    transform: scaleX(-1);
+}
+.rocket-container.launch {
+    transform: translateY(-200px) rotate(-20deg) scale(1.2);
+    transition: transform 1s ease-in-out;
+}
+
+/* כשהטופס נשלח, הרקטה משתגרת מהמסך */
+@keyframes rocketLaunchSmooth {
+    0% {
+        transform: translateY(-200px) rotate(-20deg) scale(1.2); /* מצב התחלתי כמו ה-hover */
+    }
+    100% {
+        transform: translate(-200vw, -200vh) rotate(-20deg) scale(1.2); /* שיגור שמאלה ולמעלה */
+    }
+}
+
+.rocket-container.launching {
+    animation: rocketLaunchSmooth 1.8s ease-in-out forwards;
+}
+#confettiCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* מונע ממנו לחסום קליקים */
+    z-index: 4; /* שם את הקונפטי מתחת לרקטה */
+}
+
+
+
+.form-button:hover ~ .rocket-container,
+.rocket-container:hover {
+    transform: translateY(-200px) rotate(-20deg) scale(1.2);
+    transition: transform 1s ease-in-out;
+}
+
+
+@keyframes rocketFloat {
+    0% {
+        transform: translateY(0) scaleX(-1); /* מצב התחלתי */
+    }
+    50% {
+        transform: translateY(-30px) scaleX(-1); /* עולה */
+    }
+    100% {
+        transform: translateY(0) scaleX(-1); /* חוזר למטה */
+    }
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-left: 40px;
+  justify-content: center; /* מרכז את הסוויץ' */
+}
+
+.switch-label {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  gap: 10px; /* מרווח בין הטקסט לסוויץ' */
+}
+
+.switch {
+  width: 50px;
+  font-weight: 500;
+  height: 25px;
+  background-color: rgb(0, 165, 177); /* כחול */
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.switch.on {
+  background-color: #6c757d; /* אפור כהה כשהסוויץ' מופעל */
+}
+
+.switch-toggle {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2.5px;
+  left: 5px;
+  transition: left 0.3s ease-in-out;
+}
+
+.switch.on .switch-toggle {
+  left: 25px; /* זז ימינה כשהסוויץ' דולק */
+}
+
+/*---------------------------------------------*/
+.container-call {
+    margin: 0 auto;
+    position: relative;
+    direction: rtl;
+    margin-top: -20px;
+    width: 95vw; /* משתמש ב-95% מרוחב המסך */
+    max-width: 1300px; /* מבטיח שהתיבה לא תהיה צרה מדי */
+    min-width: 850px; /* מונע מהטופס להיות קטן מדי */
+    border-radius: 30px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* מרכז את כל התוכן */
+    animation: fadeIn 0.5s ease-in-out;
+    z-index: 2;
+    overflow: visible;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.form-container {
+    padding: 40px; /* מרווח פנימי */
+    border-radius: 18px;
+    width: 90%; /* ימלא את כל רוחב ה-container */
+    max-width: 1100px; /* מונע שהתיבה תהיה קטנה מדי */
+    min-width: 800px; /* קובע מינימום גודל */
+        border: 2px solid rgba(255, 255, 255, 0.5); /* מסגרת חצי שקופה */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+
+.whole-form {
+    width: 100%; /* לוודא שהתוכן ממלא את כל הרוחב */
+    display: flex;
+    justify-content: center;
+}
+
+.container-call:hover {
+
+}
+
+.thin-line {
+    position: fixed;
+    border: none;
+    right: 445px;
+    top: 490px;
+    border-top: 1px solid #b4b4b4; /* קו אפור דק */
+    margin: 10px 0; /* רווח מעל ומתחת */
+    width: 30%; /* מתאים את הרוחב למיכל */
+ 
+    z-index: 999999;
+    transform: rotate(90deg);
+}
+
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2b2b2b;
+}
+
+textarea {
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.logo-landing {
+    position: fixed;
+    top: 20px;
+    right: 50px;
+    z-index: 5;
+}
+
+.logo {
+    margin: 0 auto;
+    left: 300px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.error-message {
+    position: absolute;
+    color: #ff0000;
+    font-size: 14px;
+    left: 0;
+
+    height: 18px; /* שומר מקום להודעה כדי שלא תזיז את האלמנטים */
+
+}
+.neededname{
+    margin-left: 20px;
+    margin-top: -7px;
+}
+.pelephone{
+    margin-top: -7px;
+    margin-left: 269px;
+}
+.needmail{
+    margin-top: -7px;
+    margin-left: 689px;
+}
+.categoryneed{
+    margin-top: -70px;
+    margin-left: 269px;
+}
+.needed2{
+    left: 0;
+    margin-left: 20px;
+    margin-top: -10px !important;
+}
+.needed{
+    margin-left: 266px;
+    margin-top: -230px;
+}
+.divider-info.has-error .error-message {
+    visibility: visible;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.toast-of-success{
+    direction: rtl;
+}
+.buttons-toast{
+    gap: 10px;
+}

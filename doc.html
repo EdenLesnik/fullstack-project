@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>דוקומנטציית קריאות שירות</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>קטגוריות</h2>
+      <ul>
+        <li><a href="#service-calls">קריאות שירות</a></li>
+        <li><a href="#settings">הגדרות</a></li>
+        <li><a href="#users">ניהול משתמשים</a></li>
+
+      </ul>
+    </aside>
+
+    <main class="content">
+      <h1>דוקומנטציית קריאות שירות</h1>
+      <section id="service-calls">
+        <h2>קריאות שירות</h2>
+      
+        <div class="endpoint">
+          <h3>📄 GET /allcalls</h3>
+          <p>שליפת כל הקריאות שאינן בארכיון. ניתן לסנן לפי שם עם פרמטר query: <code>?name=</code>.</p>
+          <p><strong>פרמטרים:</strong> <br> <code>name</code> (אופציונלי) – סינון לפי שם.</p>
+          <p><strong>תשובה:</strong> רשימת קריאות.</p>
+        </div>
+      
+        <div class="endpoint">
+          <h3>📄 GET /archive</h3>
+          <p>שליפת קריאות שהועברו לארכיון. ניתן גם כאן לסנן לפי שם עם פרמטר query: <code>?name=</code>.</p>
+          <p><strong>פרמטרים:</strong> <br> <code>name</code> (אופציונלי) – סינון לפי שם.</p>
+          <p><strong>תשובה:</strong> רשימת קריאות בארכיון.</p>
+        </div>
+      
+        <div class="endpoint">
+          <h3>🛠️ POST /update/:id</h3>
+          <p>עדכון סטטוס קריאה ו/או עדכון המטפל בקריאה לפי מזהה הקריאה.</p>
+          <p><strong>פרמטרים:</strong> <br> <code>id</code> (ב-URL) – מזהה הקריאה.</p>
+          <p><strong>גוף הבקשה (Body):</strong></p>
+          <ul>
+            <li><code>status</code> (אופציונלי) – אם רוצים לעדכן סטטוס ידנית.</li>
+            <li><code>handler</code> (אופציונלי) – עדכון שם המטפל.</li>
+          </ul>
+          <p><strong>תשובה:</strong> פרטי הסטטוס והמטפל המעודכנים.</p>
+        </div>
+      
+        <div class="endpoint">
+          <h3>❌ DELETE /delete/:id</h3>
+          <p>מחיקה פיזית לצמיתות של קריאה לפי מזהה.</p>
+          <p><strong>פרמטרים:</strong> <br> <code>id</code> (ב-URL) – מזהה הקריאה.</p>
+          <p><strong>תשובה:</strong> אישור על מחיקה סופית.</p>
+        </div>
+      
+        <div class="endpoint">
+          <h3>🗃️ POST /delete/:id</h3>
+          <p>מעבר של קריאה לארכיון (במקום מחיקה אמיתית).</p>
+          <p><strong>פרמטרים:</strong> <br> <code>id</code> (ב-URL) – מזהה הקריאה.</p>
+          <p><strong>תשובה:</strong> אישור על העברה לארכיון.</p>
+        </div>
+      
+      </section>
+      <section id="settings">
+        <h2>הגדרות שרת</h2>
+      
+        <div class="endpoint">
+          <h3>📄 GET /sla</h3>
+          <p>שליפת הגדרות השרת. אם אין הגדרות קיימות, יווצרו הגדרות ברירת מחדל.</p>
+          <p><strong>תשובה:</strong> הגדרות השרת (SLA, שם שרת, אזור זמן ועוד).</p>
+        </div>
+      
+        <div class="endpoint">
+          <h3>🛠️ PUT /</h3>
+          <p>עדכון הגדרות השרת: שם שרת, זמני SLA, אזור זמן ועוד.</p>
+          <p><strong>גוף הבקשה (Body):</strong></p>
+          <ul>
+            <li><code>serverName</code> (אופציונלי)</li>
+            <li><code>slaResponseTime</code> (אופציונלי)</li>
+            <li><code>slaResolutionTime</code> (אופציונלי)</li>
+            <li><code>timezone</code> (אופציונלי)</li>
+          </ul>
+          <p><strong>תשובה:</strong> הודעת הצלחה והגדרות מעודכנות.</p>
+        </div>
+      
+        <div class="endpoint">
+          <h3>➕ POST /settings/add-category</h3>
+          <p>הוספת קטגוריית תמיכה חדשה להגדרות השרת.</p>
+          <p><strong>גוף הבקשה (Body):</strong> <code>category</code> – שם הקטגוריה להוספה.</p>
+          <p><strong>תשובה:</strong> הודעת הצלחה והגדרות מעודכנות.</p>
+        </div>
+      
+        <div class="endpoint">
+          <h3>➖ POST /settings/remove-category</h3>
+          <p>הסרת קטגוריית תמיכה קיימת מההגדרות.</p>
+          <p><strong>גוף הבקשה (Body):</strong> <code>category</code> – שם הקטגוריה להסרה.</p>
+          <p><strong>תשובה:</strong> הודעת הצלחה והגדרות מעודכנות.</p>
+        </div>
+      
+        <div class="endpoint">
+          <h3>➕ POST /settings/add-department</h3>
+          <p>הוספת מחלקה חדשה לרשימת המחלקות.</p>
+          <p><strong>גוף הבקשה (Body):</strong> <code>department</code> – שם המחלקה להוספה.</p>
+          <p><strong>תשובה:</strong> הודעת הצלחה והגדרות מעודכנות.</p>
+        </div>
+      
+        <div class="endpoint">
+          <h3>➖ POST /settings/remove-department</h3>
+          <p>הסרת מחלקה קיימת מרשימת המחלקות.</p>
+          <p><strong>גוף הבקשה (Body):</strong> <code>department</code> – שם המחלקה להסרה.</p>
+          <p><strong>תשובה:</strong> הודעת הצלחה והגדרות מעודכנות.</p>
+        </div>
+      
+      </section>
+      <section id="users">
+        <h2>ניהול משתמשים</h2>
+      
+        <div class="endpoint">
+          <h3>➕ POST /register</h3>
+          <p>רישום משתמש חדש למערכת.</p>
+          <p><strong>גוף הבקשה (Body):</strong></p>
+          <ul>
+            <li><code>email</code> – כתובת אימייל</li>
+            <li><code>username</code> – שם משתמש</li>
+            <li><code>password</code> – סיסמה</li>
+            <li><code>firstName</code> – שם פרטי</li>
+            <li><code>lastName</code> – שם משפחה</li>
+            <li><code>role</code> – תפקיד (למשל: מנהל, משתמש)</li>
+          </ul>
+          <p><strong>תשובה:</strong> הודעת הצלחה.</p>
+        </div>
+      
+        <div class="endpoint">
+          <h3>📄 GET /users</h3>
+          <p>שליפת כל המשתמשים הרשומים במערכת (ללא סיסמאות).</p>
+          <p><strong>תשובה:</strong> רשימת משתמשים.</p>
+        </div>
+      
+        <div class="endpoint">
+          <h3>❌ DELETE /:id</h3>
+          <p>מחיקת משתמש לפי מזהה משתמש.</p>
+          <p><strong>פרמטרים:</strong> <br> <code>id</code> (ב-URL) – מזהה המשתמש למחיקה.</p>
+          <p><strong>תשובה:</strong> הודעת הצלחה על מחיקה.</p>
+        </div>
+      
+      </section>
+      
+    </main>
+  </div>
+</body>
+</html>
+lp

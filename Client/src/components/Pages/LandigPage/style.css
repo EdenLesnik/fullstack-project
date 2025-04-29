@@ -1,0 +1,123 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom right, #0d624b 0%, #095e47 100%);
+    flex-direction: column;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body.landing-page-background {
+    background: url('./Images/BackGround.png') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+body.landing-page-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(97, 255, 131, 0.2); /* שכבת צבע שקופה */
+    z-index: 1;
+}
+
+.container-call {
+    margin: 0 auto;
+    position: relative;
+    margin-top: -20px;
+    direction: rtl;
+    width: 500px;
+    max-width: 600px;
+    border-radius: 30px; /* הפינות המעוגלות */
+    padding: 20px; /* רווח פנימי */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.5s ease-in-out;
+    z-index: 2;
+    background: white; /* רקע לבן */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* צל מסביב */
+    overflow: visible; /* מבטיח שהרדיוס יפעל */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 18px;
+    width: 100%;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+}
+
+.container-call:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2),
+        0 0 8px 3px rgba(0, 255, 0, 0.26); /* צל ניאון */
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+textarea {
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.logo-landing {
+    position: fixed;
+    top: 20px;
+    right: 50px;
+    z-index: 5;
+}
+
+.logo {
+    margin: 0 auto;
+    left: 300px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.toast-of-success{
+    direction: rtl;
+}
+.buttons-toast{
+    gap: 10px;
+}

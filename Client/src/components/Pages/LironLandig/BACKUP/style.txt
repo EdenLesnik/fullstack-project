@@ -1,0 +1,327 @@
+*{
+    padding: 0;
+    
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom right, #11993a 0%, #095e47 100%);
+    flex-direction: column;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body.liron-background {
+
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    min-height: 100%;
+}
+
+
+body.liron-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(184, 244, 255, 0.6); /* שכבת צבע שקופה */
+    z-index: 1;
+}
+
+.content-container{
+    display: flex;
+    gap: 200px
+}
+.info-send{
+    display: flex;
+    gap: 45px;
+}
+.divider-info{
+    width:42.3%;
+}
+.divider-info>input,select{
+    width: 100%;
+    height: 50px;
+}
+
+.dep{
+    width: 91%;
+}
+input, textarea, select{
+    border-radius: 10px; /* הפינות המעוגלות */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* צל מסביב */
+    color: #636363;
+}
+input::placeholder, textarea::placeholder, select::placeholder{
+    font-size:24px; /* שנה את הערך הזה לפי הצורך */
+    color: #aaa; /* ניתן גם להוסיף צבע אם תרצה */
+}
+
+.form-button{
+    background-color: #1b25ac;
+    width: max-content;
+    position: relative;
+    right: 572px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* צל מסביב */
+    margin-top: -90px;
+    border-radius: 15px; /* הפינות המעוגלות */
+}
+
+.container-info{
+    direction: ltr;
+    max-width: 300px;
+}
+.whole-form{
+    width: max-content;
+    margin-top: -30px;
+}
+.form-title {
+    margin-bottom: 30px;
+    font-size: 40px;
+    color: #1b25ac !important; /* שחור חזק */
+}
+.container-info {
+    margin-top: 143px;
+    color: #1b25ac !important; /* שחור חזק */
+    opacity: 1 !important; /* מבטל כל שקיפות */
+    position: relative; /* מבטיח שהטקסט לא יושפע משכבות אחרות */
+    z-index: 2; /* מבטיח שהתוכן נמצא מעל שכבת ה-overlay */
+}
+.contact-info{
+    margin-top: 45px
+}
+.container-info  p{
+    margin-top: 50px;
+}
+.info-icon{ 
+ 
+}
+input{
+    height: 30px;
+}
+.second-logo {
+    position: fixed;
+    left: 40px;
+    top: 0px;
+}
+
+.second-logo h1 {
+    color: rgb(58, 58, 114);
+    animation: colorPulse 3s infinite; /* אנימציה חלקה */
+}
+
+.support-logo {
+    position: fixed;
+    left: 40px;
+    top: 50px;
+}
+
+.support-logo h1 {
+    color: rgb(100, 100, 185);
+    animation: colorPulse 3s infinite; /* אותה אנימציה כמו בלוגו הראשון */
+}
+
+@keyframes colorPulse {
+    0% {
+        color: rgb(58, 58, 114); /* התחלה */
+    }
+    25% {
+        color: rgb(42, 114, 207); /* שינוי ראשון */
+    }
+    50% {
+        color: rgb(166, 108, 219); /* שינוי שני */
+    }
+    75% {
+        color: rgb(3, 42, 126); /* שינוי שלישי */
+    }
+    100% {
+        color: rgb(199, 38, 137); /* חזרה להתחלה */
+    }
+}
+
+
+.rocket-container {
+    position: fixed;
+    bottom: -290px;
+    right: -160px;
+    z-index: 5;
+    transition: transform 0.5s ease-in-out; /* חלקות כשעושים hover */
+}
+
+.rocket {
+    margin: 0 auto;
+    left: 20px;
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    animation: rocketFloat 3s ease-in-out infinite; /* אנימציה מתמשכת */
+    transform: scaleX(-1);
+}
+
+.rocket-container:hover {
+    transform: translateY(-200px) rotate(-20deg) scale(1.2); /* טיסה למעלה עם סיבוב והגדלה */
+}
+
+@keyframes rocketFloat {
+    0% {
+        transform: translateY(0) scaleX(-1); /* מצב התחלתי */
+    }
+    50% {
+        transform: translateY(-30px) scaleX(-1); /* עולה */
+    }
+    100% {
+        transform: translateY(0) scaleX(-1); /* חוזר למטה */
+    }
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-left: 540px;
+  justify-content: center; /* מרכז את הסוויץ' */
+}
+
+.switch-label {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  gap: 10px; /* מרווח בין הטקסט לסוויץ' */
+}
+
+.switch {
+  width: 50px;
+  height: 25px;
+  background-color: #007bff; /* כחול */
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.switch.on {
+  background-color: #6c757d; /* אפור כהה כשהסוויץ' מופעל */
+}
+
+.switch-toggle {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2.5px;
+  left: 5px;
+  transition: left 0.3s ease-in-out;
+}
+
+.switch.on .switch-toggle {
+  left: 25px; /* זז ימינה כשהסוויץ' דולק */
+}
+
+/*---------------------------------------------*/
+.container-call {
+    margin: 0 auto;
+    position: relative;
+    margin-top: -20px;
+    direction: rtl;
+    width: 750px;
+    max-width: 750px;
+    border-radius: 30px; /* הפינות המעוגלות */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.5s ease-in-out;
+    z-index: 2;
+
+    overflow: visible; /* מבטיח שהרדיוס יפעל */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.form-container {
+
+    padding: 20px;
+    border-radius: 18px;
+    width: 100%;
+
+}
+
+.container-call:hover {
+
+}
+
+.thin-line {
+    position: fixed;
+    border: none;
+    right: 445px;
+    top: 490px;
+    border-top: 1px solid #b4b4b4; /* קו אפור דק */
+    margin: 10px 0; /* רווח מעל ומתחת */
+    width: 30%; /* מתאים את הרוחב למיכל */
+ 
+    z-index: 999999;
+    transform: rotate(90deg);
+}
+
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+textarea {
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.logo-landing {
+    position: fixed;
+    top: 20px;
+    right: 50px;
+    z-index: 5;
+}
+
+.logo {
+    margin: 0 auto;
+    left: 300px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
+    
+    margin-top: 5px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.toast-of-success{
+    direction: rtl;
+}
+.buttons-toast{
+    gap: 10px;
+}
